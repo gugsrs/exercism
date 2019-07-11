@@ -16,20 +16,25 @@ defmodule SecretHandshake do
   """
   @spec commands(code :: integer) :: list(String.t())
   def commands(code) do
-    casesToCheck = [1, 10, 100, 1000]
-    Enum.map(casesToCheck, &check_case(&1))
-    check_case(code)
+    casesToCheck = [0b1, 0b10, 0b100, 0b1000]
+    ops = Enum.map(casesToCheck, &check_case(&1, code))
+    |> Enum.filter(& &1)
+    if (code &&& 0b10000) == 16 do
+       Enum.reverse(ops)
+    else
+      ops
+    end
   end
 
-  def check_case(code) do
+  def check_case(check, code) do
     cond do
-      (code &&& 1) == 1 ->
+      (code &&& check) == 1 ->
         "wink"
-      (code &&& 10) == 2 ->
-        "double wink"
-      (code &&& 100) == 4 ->
+      (code &&& check) == 2 ->
+        "double blink"
+      (code &&& check) == 4 ->
         "close your eyes"
-      (code &&& 1000) == 6 ->
+      (code &&& check) == 8 ->
         "jump"
       true ->
         nil
