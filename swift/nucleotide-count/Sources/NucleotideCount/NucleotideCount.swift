@@ -2,14 +2,26 @@
 let NUCLEOTIDES = ["A", "C", "G", "T"]
 
 struct DNA {
-	strand: String
+	var strand: String
 
-	init(strand: String) {
+	init?(strand: String) {
 		self.strand = strand
-		strand.forEach{ char in
-			if !NUCLEOTIDES.contains(char) {
+		for char in strand {
+			if !NUCLEOTIDES.contains(String(char)) {
 				return nil
 			}
 		}
+	}
+
+	func count(_ char: Character) -> Int {
+		return self.strand.filter { $0 == char }.count
+	}
+
+	func counts() -> [String: Int] {
+		var counter: [String : Int] = [:]
+		for nucleotide in NUCLEOTIDES {
+			counter[nucleotide] = count(Character(nucleotide))
+		}
+		return counter
 	}
 }
