@@ -6,17 +6,16 @@ main () {
     raindrops="Pling"
   fi
   if (( $1 % 5 == 0)); then
-    raindrops="${raindrops}Plang"
+    raindrops+="Plang"
   fi
   if (( $1 % 7 == 0)); then
-    raindrops="${raindrops}Plong"
+    raindrops+="Plong"
   fi
   if [[ -z "$raindrops" ]]; then
-    echo $1
+    echo "$1"
   else
     echo "${raindrops}"
   fi
-  exit 0
 }
 
 main "$@"

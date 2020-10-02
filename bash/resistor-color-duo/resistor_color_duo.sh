@@ -6,11 +6,11 @@ main () {
     result=""
     for color in "$@"
     do
-        result="${result}${colors[$color]}"
+        result+="${colors[$color]}"
     done
     if [[ -z "$result" ]]; then
         echo "invalid color"
-        exit 1
+        return 1
     fi
     echo "${result:0:2}"
 }
