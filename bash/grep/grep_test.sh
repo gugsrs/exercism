@@ -35,6 +35,10 @@ That Shepherd, who first taught the chosen Seed
 END_PARADISE
 }
 
+teardown() {
+    rm iliad.txt midsummer-night.txt paradise-lost.txt
+}
+
 # Test grepping a single file
 
 @test "One file, one match, no flags" {
